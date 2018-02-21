@@ -4,7 +4,7 @@ Built by Douglas Wagner
 
 Basic calculator with intro functionality. 
 
-**Current Functionality**
+**Current Functionality**  
 -Single Operator Equations (ex. 3 + 5 = 8 -> reset for new equation, starting at a new first operand)  
 -All Clear  
 -Positive/Negative toggle  
@@ -19,7 +19,7 @@ Basic calculator with intro functionality.
 -AutoLayout: utilized same width, and same height feature  
 
 
-**Planned Functionality**
+**Planned Functionality**  
 -Multiple operator equations (ex. input: 3 + 5 + 2 = 10)  
 -More operators (userdefined power, userdefined radical, log, cos, sin, tan, etc...)  
 -Separate layout for landscape orientation  
