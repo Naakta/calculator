@@ -21,7 +21,7 @@ class CalcBrain {
         var strCopy = checkPeriod(str) // if there is already a . then the incoming str becomes ""
         
         if str == "." {
-            self.hasPeriod = true
+            hasPeriod = true
         } else if str == "0" && currentString == "0" { // does not allow more than one 0 before a .
             strCopy = ""
         }
@@ -38,23 +38,25 @@ class CalcBrain {
     }
     
     func setEquation(_ str: String) -> String {
-        if self.hasOperator == true && currentString == "" { // allows operator to be changed if wrong one is hit first
+        if hasOperator == true && currentString == "" { // allows operator to be changed if wrong one is hit first
             theOperator = str
-            return "0"
+            return operand1
+        } else if hasOperator && currentString != "" {
+            return currentString
         } else if currentString == "" { // this is not a number to operator cannot be set yet
-            return "0"
+            return operand1
         } else if currentString == "0." { // this is not a number so operator cannot be set yet
             return "0."
         } else { // set first operand, and the operator. currentString is now building the second operand
             theOperator = str
-            self.hasOperator = true
+            hasOperator = true
             
-            self.operand1 = currentString
-            self.hasOperand1 = true
+            operand1 = currentString
+            hasOperand1 = true
             currentString = ""
             isNegative = false
             
-            return "0"
+            return operand1
         }
     }
     
@@ -67,10 +69,12 @@ class CalcBrain {
         
         var theAnswer = 0.0
         
-        if theOperator == "x" {
+        if theOperator == "×" {
             theAnswer = Double(operand1)! * Double(currentString)!
             return checkIntOrDouble(theAnswer)
-        } else if theOperator == "/" {
+        } else if theOperator == "÷" && currentString == "0" {
+            return "Error"
+        } else if theOperator == "÷" {
             theAnswer = Double(operand1)! / Double(currentString)!
             return checkIntOrDouble(theAnswer)
         } else if theOperator == "+" {
@@ -109,7 +113,7 @@ class CalcBrain {
     func checkPeriod(_ str: String) -> String {
         // changes input to "" if there is already a period and user tries to enter another
         // otherwise, the incoming string is not changed
-        if self.hasPeriod == true && str == "." {
+        if hasPeriod == true && str == "." {
             return ""
         } else {
             return str
