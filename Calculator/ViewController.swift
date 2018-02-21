@@ -30,12 +30,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func takeInNumber(sender: UIButton) {
-        //print(sender.currentTitle!)
         calcOutput.text = myBrain.addInput(sender.currentTitle!)
     }
     
     @IBAction func takeInOperator(sender: UIButton) {
-        //print(sender.currentTitle!)
         calcOutput.text = myBrain.setEquation(sender.currentTitle!)
     }
     
@@ -52,18 +50,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func performSingleOperator(sender: UIButton) {
-        //print(sender.currentTitle!)
         calcOutput.text = myBrain.singleOperator(sender.currentTitle!)
         myBrain = CalcBrain()
     }
     
     @IBAction func toggleNegative() {
-        myBrain.toggleNeg()
-        if myBrain.isNegative {
-            calcOutput.text = "-" + myBrain.currentString
-        } else {
-            calcOutput.text = myBrain.currentString
-        }
+        calcOutput.text =  myBrain.toggleNeg()
     }
     
     @IBAction func clearAll() {

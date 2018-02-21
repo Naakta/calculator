@@ -24,6 +24,9 @@ class CalcBrain {
             hasPeriod = true
         } else if str == "0" && currentString == "0" { // does not allow more than one 0 before a .
             strCopy = ""
+        } else if currentString == "0" && Int(str)! > 0 {
+            currentString = str
+            return currentString
         }
         
         // flavor text for starting a decimal number
@@ -51,7 +54,12 @@ class CalcBrain {
             theOperator = str
             hasOperator = true
             
-            operand1 = currentString
+            if isNegative {
+                operand1 = "-" + currentString
+            } else {
+                operand1 = currentString
+            }
+            
             hasOperand1 = true
             currentString = ""
             isNegative = false
@@ -68,6 +76,9 @@ class CalcBrain {
         }
         
         var theAnswer = 0.0
+        if isNegative {
+            currentString = "-" + currentString
+        }
         
         if theOperator == "×" {
             theAnswer = Double(operand1)! * Double(currentString)!
@@ -98,7 +109,14 @@ class CalcBrain {
         } else if op == "sq" {
             let thisNum = pow(Double(currentString)!, 2.0)
             return checkIntOrDouble(thisNum)
-        } else if op == "sqrt" {
+        } else if op == "sqrt" && isNegative {
+            if currentString == "1" {
+                return "i" // sqrt of -1 is imaginary "i" not "1i"
+            }
+            let thisNum = sqrt(Double(currentString)!)
+            return checkIntOrDouble(thisNum) + "i" // sqrt of a negative number is imaginary
+        }
+        else if op == "sqrt" {
             let thisNum = sqrt(Double(currentString)!)
             return checkIntOrDouble(thisNum)
         }
@@ -106,8 +124,13 @@ class CalcBrain {
         return "Unforseen Operator" // shouldn't ever hit this
     }
     
-    func toggleNeg() {
+    func toggleNeg() -> String {
         isNegative = !isNegative
+        if isNegative {
+            return  "-" + currentString
+        } else {
+            return currentString
+        }
     }
     
     func checkPeriod(_ str: String) -> String {
